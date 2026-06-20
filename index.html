@@ -635,6 +635,40 @@
     <p class="section-label">Personal Projects</p>
     <h2>Projects</h2>
 
+    <div class="project-card" style="margin-bottom: 24px;">
+      <div class="project-header">
+        <h3><a href="https://github.com/prafful13/k3s-dev" target="_blank">k3s-dev</a></h3>
+        <div class="project-link-row">
+          <a href="https://github.com/prafful13/k3s-dev" class="project-link-btn" target="_blank">GitHub &#8599;</a>
+        </div>
+      </div>
+      <p class="project-desc">
+        A CLI that bootstraps a full local k3s development environment on macOS in one command.
+        Running <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--accent2)">k3s-dev init</code>
+        runs pre-flight checks, installs the <strong>Bitnami Sealed Secrets controller</strong>,
+        creates namespaces, and provisions a <strong>Postgres instance</strong>
+        (PVC + Secret + Deployment + NodePort Service) — all tracked in
+        <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--accent2)">~/.k3s-dev/state.json</code>.
+      </p>
+      <p class="project-desc">
+        Solves the "works on my machine" bootstrapping problem for teams using k3s as a local
+        production replica. Postgres passwords are auto-generated and stored in
+        <strong>macOS Keychain</strong>; the resulting k8s Secret is consumed directly by
+        any project's Deployment without the project owning the postgres lifecycle.
+        Also manages macOS <strong>LaunchAgents</strong> for host-level background services.
+      </p>
+      <div class="tag-row">
+        <span class="tag hi">k3s / Kubernetes</span>
+        <span class="tag hi">Bitnami Sealed Secrets</span>
+        <span class="tag">Python 3.13</span>
+        <span class="tag">Typer</span>
+        <span class="tag">macOS Keychain</span>
+        <span class="tag">Bazel</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">LaunchAgents</span>
+      </div>
+    </div>
+
     <div class="project-card">
       <div class="project-header">
         <h3><a href="https://prafful13.github.io/robinhood-pilot/" target="_blank">robinhood-pilot</a></h3>
@@ -645,17 +679,17 @@
       </div>
       <p class="project-desc">
         An automated equity trading bot using <strong>Robinhood's Agentic MCP API</strong>,
-        deployed on a local k3s cluster. Trades RSI mean-reversion signals on a configurable
-        watchlist with four selectable strategies (RSI, MACD crossover, Bollinger Bands,
+        deployed on a local k3s cluster. Trades on a configurable watchlist with four
+        selectable strategies (RSI mean-reversion, MACD crossover, Bollinger Bands,
         RSI+MACD combo). All strategy and risk parameters are editable live from a
         <strong>Streamlit dashboard</strong> without a restart.
       </p>
       <p class="project-desc">
-        The architecture reflects how I approach production systems: <strong>zero secrets in git</strong>,
-        a three-layer secrets model (macOS Keychain on the host, Bitnami Sealed Secrets for k8s,
-        env vars and file mounts in pods), PostgreSQL on k3s for trade and portfolio history,
-        and a full tax calculator with FIFO cost basis and short/long-term gain split built
-        into the dashboard.
+        Infrastructure is handled by <strong>k3s-dev</strong> — Postgres, Sealed Secrets controller,
+        and namespace bootstrapping are delegated to the shared CLI rather than embedded in the
+        project. The project owns only its application secrets (OAuth tokens) and app manifests.
+        Full <strong>zero secrets in git</strong> posture: three-layer model from macOS Keychain
+        through Sealed Secrets to pod env vars.
       </p>
       <div class="tag-row">
         <span class="tag hi">Robinhood Agentic MCP API</span>
