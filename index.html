@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prafful Mehrotra</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #1c2128;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent2: #3fb950;
+      --font-mono: "SF Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 17, 23, 0.88);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+
+    nav .inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ── Hero ── */
+    #hero { padding: 96px 0 72px; border-bottom: 1px solid var(--border); }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    h1 .dim { color: var(--muted); }
+
+    .hero-body {
+      max-width: 640px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .hero-body strong { color: var(--text); }
+
+    .hero-tags { margin-bottom: 0; }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--accent2);
+      background: rgba(63, 185, 80, 0.06);
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #0d1117; }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); background: transparent; }
+
+    /* ── Section headings ── */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    /* ── Values ── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .value-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+
+    .value-card:hover { border-color: var(--accent); }
+
+    .value-icon { font-size: 1.4rem; margin-bottom: 14px; display: block; }
+
+    .value-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .value-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+    .value-card p strong { color: var(--text); }
+
+    /* ── Metrics ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .metric {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .metric-num {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .metric-label { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+
+    /* ── Technologies ── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .tech-group {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 24px;
+    }
+
+    .tech-group-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .tech-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .tech-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 3px;
+    }
+
+    /* ── Projects ── */
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 36px;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover { border-color: var(--accent); }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .project-card h3 { font-size: 1.1rem; font-weight: 700; }
+    .project-card h3 a { color: var(--text); }
+    .project-card h3 a:hover { color: var(--accent); text-decoration: none; }
+
+    .project-link-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    .project-link-btn {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .project-link-btn:hover { border-color: var(--accent); text-decoration: none; }
+
+    .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+    .project-desc strong { color: var(--text); }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 3px;
+    }
+
+    .tag.hi {
+      color: var(--accent2);
+      border-color: rgba(63, 185, 80, 0.3);
+      background: rgba(63, 185, 80, 0.06);
+    }
+
+    /* ── Experience ── */
+    .exp-list { display: flex; flex-direction: column; gap: 32px; }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 600px) {
+      .exp-item { grid-template-columns: 1fr; gap: 6px; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+
+    .exp-meta {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      padding-top: 3px;
+      line-height: 1.6;
+    }
+
+    .exp-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+
+    .exp-content .role {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+    }
+
+    .exp-content ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+    .exp-content li {
+      font-size: 0.875rem;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .exp-content li::before { content: "–"; position: absolute; left: 0; color: var(--border); }
+    .exp-content li strong { color: var(--text); }
+
+    .divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <span class="nav-name">prafful mehrotra</span>
+    <ul class="nav-links">
+      <li><a href="#how-i-work">How I Work</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#technologies">Technologies</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="mailto:prafful.mehrotra@gmail.com">Email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="container">
+    <p class="eyebrow">Senior Software Engineer</p>
+    <h1>
+      Infrastructure for humans<br/>
+      <span class="dim">and AI agents.</span>
+    </h1>
+    <p class="hero-body">
+      I build and own <strong>platform infrastructure</strong> at the scale where one wrong config
+      affects millions of build jobs a day. Over 6+ years spanning infrastructure and product
+      engineering, I've architected systems that serve <strong>1.5M+ CI/CD jobs per day</strong>
+      across CPU and GPU compute for both human developers and AI coding agents submitting pull requests.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">Kubernetes / AKS</span>
+      <span class="hero-tag">Container-as-a-Service</span>
+      <span class="hero-tag">GPU Compute</span>
+      <span class="hero-tag">CI/CD Infrastructure</span>
+      <span class="hero-tag">AI Agent Infra</span>
+    </div>
+    <div class="cta-row">
+      <a href="https://www.linkedin.com/in/prafful-mehrotra" class="btn btn-primary" target="_blank">LinkedIn</a>
+      <a href="https://github.com/prafful13" class="btn btn-ghost" target="_blank">GitHub</a>
+      <a href="mailto:prafful.mehrotra@gmail.com" class="btn btn-ghost">prafful.mehrotra@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── How I Work ── -->
+<section id="how-i-work">
+  <div class="container">
+    <p class="section-label">Competencies</p>
+    <h2>How I work</h2>
+    <div class="values-grid">
+
+      <div class="value-card">
+        <span class="value-icon">&#128270;</span>
+        <h3>Build visibility before building a fix</h3>
+        <p>
+          When I hit a failure I don't understand, I instrument before I guess.
+          Synthetic tests, distributed traces, dashboards first. The actual root cause
+          of a problem is often only visible <strong>after</strong> you've built the
+          right observability layer. Jumping straight to a fix is how you patch the
+          wrong thing and carry the real issue forward.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <span class="value-icon">&#128200;</span>
+        <h3>Own unowned critical problems</h3>
+        <p>
+          When a critical system has no owner and no documentation, I treat that as
+          a signal to lean in, not step back. I've stepped into systems mid-failure
+          with zero handoff, root-caused novel infrastructure problems from first principles,
+          and <strong>redesigned the architecture from scratch</strong> when the original
+          approach couldn't be salvaged.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <span class="value-icon">&#129504;</span>
+        <h3>Reason from constraints, not trends</h3>
+        <p>
+          Popular tools get rejected when the constraints don't fit. I've turned down
+          Ansible, Chef, and agentless config management frameworks when runtime overhead,
+          authentication constraints, or firewall rules made them the wrong call.
+          <strong>The right tool is the one that fits your actual environment</strong>,
+          not the one that looks good in a tech radar.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <span class="value-icon">&#9654;&#65039;</span>
+        <h3>Use AI as an engineering multiplier</h3>
+        <p>
+          I use AI to accelerate analysis that would otherwise take days: finding patterns
+          in large request datasets, identifying predictable burst windows that inform
+          pre-warming strategies over reactive scaling. I also <strong>build and operate
+          the infrastructure that AI coding agents run on</strong>, so I understand both
+          sides of that boundary.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <span class="value-icon">&#127891;</span>
+        <h3>Roll out like a stakeholder, not a developer</h3>
+        <p>
+          Shipping a change to thousands of repos or across a multi-cluster production
+          fleet is not the same as merging a PR. I work directly with the teams affected
+          through adoption, run incremental rollouts with <strong>monitoring gates before
+          the next step</strong>, and don't announce things as done until they're actually
+          stable in production.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <span class="value-icon">&#128274;</span>
+        <h3>Security and ops are part of the design</h3>
+        <p>
+          I don't bolt security on at the end. Pull-based architectures that eliminate
+          ad-hoc SSH access, isolation patterns that strengthen the security posture as a
+          side effect of a reliability fix, <strong>zero secrets in git from day one</strong>
+          on personal projects. These are design choices, not checklist items.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Impact ── -->
+<section id="impact">
+  <div class="container">
+    <p class="section-label">Impact</p>
+    <h2>Scale and outcomes</h2>
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-num">1.5M+</div>
+        <div class="metric-label">CI/CD build jobs per day on platforms I own</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">25% &#8594; &lt;1%</div>
+        <div class="metric-label">Network-related build failures after container isolation redesign</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">4h &#8594; &lt;5m</div>
+        <div class="metric-label">GPU runner queue times after driver provisioning redesign</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">90%+</div>
+        <div class="metric-label">Parallelized build tooling adoption across thousands of repos (from 0)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">1h &#8594; &lt;20m</div>
+        <div class="metric-label">Container image build and publish times</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">15 &#8594; 0</div>
+        <div class="metric-label">Fleet incidents per quarter after automation agent rollout</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">30&#8211;75s &#8594; 1&#8211;2s</div>
+        <div class="metric-label">Artifact fetch times after cache infrastructure scaling</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">50K</div>
+        <div class="metric-label">Bare-metal hosts supported by enterprise platform services</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Technologies ── -->
+<section id="technologies">
+  <div class="container">
+    <p class="section-label">Stack</p>
+    <h2>Technologies</h2>
+    <div class="tech-grid">
+
+      <div class="tech-group">
+        <div class="tech-group-label">Orchestration &amp; Containers</div>
+        <div class="tech-pills">
+          <span class="tech-pill">Kubernetes (AKS)</span>
+          <span class="tech-pill">k3s</span>
+          <span class="tech-pill">Docker / BuildKit</span>
+          <span class="tech-pill">Helm</span>
+          <span class="tech-pill">GitHub Actions (ARC)</span>
+        </div>
+      </div>
+
+      <div class="tech-group">
+        <div class="tech-group-label">Cloud &amp; Infrastructure</div>
+        <div class="tech-pills">
+          <span class="tech-pill">Azure</span>
+          <span class="tech-pill">AWS</span>
+          <span class="tech-pill">Terraform</span>
+          <span class="tech-pill">Linux</span>
+          <span class="tech-pill">NVIDIA GPU Operator</span>
+        </div>
+      </div>
+
+      <div class="tech-group">
+        <div class="tech-group-label">Languages &amp; Frameworks</div>
+        <div class="tech-pills">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Java / Spring Boot</span>
+          <span class="tech-pill">Bash</span>
+          <span class="tech-pill">RESTful APIs</span>
+        </div>
+      </div>
+
+      <div class="tech-group">
+        <div class="tech-group-label">Observability</div>
+        <div class="tech-pills">
+          <span class="tech-pill">OpenTelemetry (OTel)</span>
+          <span class="tech-pill">Grafana</span>
+          <span class="tech-pill">Azure Monitor</span>
+        </div>
+      </div>
+
+      <div class="tech-group">
+        <div class="tech-group-label">Data &amp; Storage</div>
+        <div class="tech-pills">
+          <span class="tech-pill">PostgreSQL</span>
+          <span class="tech-pill">Redis</span>
+          <span class="tech-pill">SQLAlchemy</span>
+          <span class="tech-pill">NoSQL</span>
+        </div>
+      </div>
+
+      <div class="tech-group">
+        <div class="tech-group-label">Build &amp; CI/CD</div>
+        <div class="tech-pills">
+          <span class="tech-pill">Bazel</span>
+          <span class="tech-pill">Maven</span>
+          <span class="tech-pill">Jenkins</span>
+          <span class="tech-pill">Artifactory</span>
+          <span class="tech-pill">Git</span>
+        </div>
+      </div>
+
+      <div class="tech-group">
+        <div class="tech-group-label">Security &amp; Secrets</div>
+        <div class="tech-pills">
+          <span class="tech-pill">Bitnami Sealed Secrets</span>
+          <span class="tech-pill">macOS Keychain</span>
+          <span class="tech-pill">FIPS compliance</span>
+          <span class="tech-pill">OAuth 2.0 PKCE</span>
+        </div>
+      </div>
+
+      <div class="tech-group">
+        <div class="tech-group-label">Config &amp; Automation</div>
+        <div class="tech-pills">
+          <span class="tech-pill">SaltStack</span>
+          <span class="tech-pill">HAProxy</span>
+          <span class="tech-pill">systemd</span>
+          <span class="tech-pill">Nginx</span>
+          <span class="tech-pill">Streamlit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label">Personal Projects</p>
+    <h2>Projects</h2>
+
+    <div class="project-card">
+      <div class="project-header">
+        <h3><a href="https://prafful13.github.io/robinhood-pilot/" target="_blank">robinhood-pilot</a></h3>
+        <div class="project-link-row">
+          <a href="https://prafful13.github.io/robinhood-pilot/" class="project-link-btn" target="_blank">Live &#8599;</a>
+          <a href="https://github.com/prafful13/robinhood-pilot" class="project-link-btn" target="_blank">GitHub &#8599;</a>
+        </div>
+      </div>
+      <p class="project-desc">
+        An automated equity trading bot using <strong>Robinhood's Agentic MCP API</strong>,
+        deployed on a local k3s cluster. Trades RSI mean-reversion signals on a configurable
+        watchlist with four selectable strategies (RSI, MACD crossover, Bollinger Bands,
+        RSI+MACD combo). All strategy and risk parameters are editable live from a
+        <strong>Streamlit dashboard</strong> without a restart.
+      </p>
+      <p class="project-desc">
+        The architecture reflects how I approach production systems: <strong>zero secrets in git</strong>,
+        a three-layer secrets model (macOS Keychain on the host, Bitnami Sealed Secrets for k8s,
+        env vars and file mounts in pods), PostgreSQL on k3s for trade and portfolio history,
+        and a full tax calculator with FIFO cost basis and short/long-term gain split built
+        into the dashboard.
+      </p>
+      <div class="tag-row">
+        <span class="tag hi">Robinhood Agentic MCP API</span>
+        <span class="tag hi">k3s / Kubernetes</span>
+        <span class="tag">Python 3.13</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Bitnami Sealed Secrets</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Bazel</span>
+        <span class="tag">Plotly</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Experience ── -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Background</p>
+    <h2>Experience</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          May 2025 &ndash; Present<br/>
+          Sunnyvale, CA
+        </div>
+        <div class="exp-content">
+          <h3>LinkedIn</h3>
+          <div class="role">Senior Software Engineer, CI Platform Infrastructure</div>
+          <ul>
+            <li>Own the <strong>CI/CD Compute Platform (CaaS)</strong> on Azure Kubernetes Service, serving 1.5M+ CPU and GPU build jobs per day for developers and AI coding agents.</li>
+            <li>Redesigned GPU driver provisioning using the NVIDIA GPU Operator, cutting queue times from 4+ hours to under 5 minutes.</li>
+            <li>Led Docker BuildKit adoption from 0 to 90%+ across 8,000+ repos, cutting image build times from 1+ hours to under 20 minutes.</li>
+            <li>Redesigned the runner fleet around a Docker-in-Docker sidecar model, dropping network-related build failures from ~25% to under 1%.</li>
+            <li>Built a distributed macOS fleet automation agent, eliminating 15+ incidents per quarter and restoring full fleet availability.</li>
+            <li>Built OTel-based synthetic network testing that surfaces latency issues before they cause build failures.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          June 2020 &ndash; May 2025<br/>
+          Palo Alto, CA
+        </div>
+        <div class="exp-content">
+          <h3>Broadcom (VMware)</h3>
+          <div class="role">Staff Software Engineer (SMTS), VMware Cloud Foundation</div>
+          <ul>
+            <li>Built Spring Boot RESTful services for datacenter bring-up and inventory supporting <strong>50,000+ bare-metal hosts</strong>.</li>
+            <li>Led end-to-end adoption of SaltStack as the Universal Configuration Management layer with HA control plane via HAProxy.</li>
+            <li>Designed a Python CLI framework for datacenter migrations with SDK integration, process monitoring, and resource locking.</li>
+            <li>Led Maven to Bazel build system migration; built Grafana dashboards for CI test environment analysis.</li>
+            <li>Engineered systemd services and firstboot scripts for Linux cloud appliances (FIPS, Postgres, Nginx).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-meta">Education</div>
+        <div class="exp-content">
+          <h3>University of Florida</h3>
+          <div class="role">Master of Computer Science &mdash; May 2020</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">&nbsp;</div>
+        <div class="exp-content">
+          <h3>LNM Institute of Information Technology</h3>
+          <div class="role">Bachelor of Computer Science &mdash; April 2018</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <a href="mailto:prafful.mehrotra@gmail.com">prafful.mehrotra@gmail.com</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://www.linkedin.com/in/prafful-mehrotra" target="_blank">linkedin.com/in/prafful-mehrotra</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://github.com/prafful13" target="_blank">github.com/prafful13</a>
+    &nbsp;&middot;&nbsp;
+    Sunnyvale, CA
+  </div>
+</footer>
+
+</body>
+</html>
