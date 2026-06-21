@@ -584,7 +584,7 @@
       </div>
     </div>
 
-    <div class="project-card">
+    <div class="project-card" style="margin-bottom: 24px;">
       <div class="project-header">
         <h3><a href="https://prafful13.github.io/robinhood-pilot/" target="_blank">robinhood-pilot</a></h3>
         <div class="project-link-row">
@@ -624,6 +624,44 @@
         <span class="tag">Docker</span>
         <span class="tag">Bazel</span>
         <span class="tag">Plotly</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <h3><a href="https://github.com/prafful13/contracts-analysis" target="_blank">contracts-analysis</a></h3>
+        <div class="project-link-row">
+          <a href="https://github.com/prafful13/contracts-analysis" class="project-link-btn" target="_blank">GitHub &#8599;</a>
+        </div>
+      </div>
+      <p class="project-desc">
+        A local <strong>options screener dashboard</strong> built on Streamlit. Two modes:
+        an <em>Income Screener</em> that finds cash-secured puts and covered calls to sell
+        (ranked by annualized return on collateral), and a <em>Buy Screener</em> that
+        surfaces high-delta directional plays ranked by a composite liquidity score.
+      </p>
+      <p class="project-desc">
+        Data is fetched live from <strong>Yahoo Finance</strong> (yfinance).
+        Greeks (delta, gamma, theta, vega) are computed via
+        <strong>Black-Scholes</strong> (py_vollib).
+        The <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--accent2)">Annual%</code>
+        column renders as a progress bar — width encodes return magnitude so the best
+        contracts are scannable at a glance without reading numbers.
+        Filters (DTE, delta range, OTM%, volume, open interest) live in a persistent sidebar
+        backed by <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--accent2)">config.yaml</code>,
+        editable without a rebuild.
+        Deployed on local <strong>k3s via k3s-dev</strong> at NodePort 30502.
+      </p>
+      <div class="tag-row">
+        <span class="tag hi">Streamlit</span>
+        <span class="tag hi">Options / Greeks</span>
+        <span class="tag">Python 3.13</span>
+        <span class="tag">yfinance</span>
+        <span class="tag">py_vollib</span>
+        <span class="tag">Black-Scholes</span>
+        <span class="tag">k3s / k3s-dev</span>
+        <span class="tag">Plotly</span>
+        <span class="tag">Docker</span>
       </div>
     </div>
 
