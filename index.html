@@ -31,7 +31,7 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
 
     section { padding: 72px 0; border-bottom: 1px solid var(--border); }
     section:last-of-type { border-bottom: none; }
@@ -48,7 +48,7 @@
     }
 
     nav .inner {
-      max-width: 860px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 0 24px;
       display: flex;
@@ -159,92 +159,93 @@
       margin-bottom: 40px;
     }
 
-    /* ── Values ── */
-    .values-grid {
+    /* ── Snapshot (3-col: How I Work | Impact | Technologies) ── */
+    .snapshot-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
     }
 
-    .value-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 28px;
-      transition: border-color 0.2s;
+    .snapshot-col {
+      padding-right: 32px;
     }
 
-    .value-card:hover { border-color: var(--accent); }
+    .snapshot-col + .snapshot-col {
+      border-left: 1px solid var(--border);
+      padding-left: 32px;
+      padding-right: 32px;
+    }
 
-    .value-icon { font-size: 1.4rem; margin-bottom: 14px; display: block; }
+    .snapshot-col:last-child {
+      padding-right: 0;
+    }
 
-    .value-card h3 {
+    .snapshot-h {
       font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 10px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
       color: var(--text);
     }
 
-    .value-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
-    .value-card p strong { color: var(--text); }
+    /* Compact principle list */
+    .value-list { display: flex; flex-direction: column; gap: 11px; }
 
-    /* ── Metrics ── */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-    }
+    .value-item { display: flex; align-items: flex-start; gap: 8px; }
 
-    .metric {
+    .value-item-icon { font-size: 0.88rem; flex-shrink: 0; margin-top: 1px; }
+
+    .value-item-text { font-size: 0.82rem; color: var(--text); font-weight: 500; line-height: 1.4; }
+
+    /* Compact metrics */
+    .metric-col { display: flex; flex-direction: column; gap: 7px; }
+
+    .metric-sm {
       background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 24px;
+      border-radius: 6px;
+      padding: 10px 12px;
     }
 
     .metric-num {
       font-family: var(--font-mono);
-      font-size: 2rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--accent);
       line-height: 1;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .metric-label { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+    .metric-label { font-size: 0.72rem; color: var(--muted); line-height: 1.35; }
 
-    /* ── Technologies ── */
-    .tech-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
+    /* Tech groups */
+    .tech-col { display: flex; flex-direction: column; gap: 7px; }
 
     .tech-group {
       background: var(--bg2);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 22px 24px;
+      border-radius: 6px;
+      padding: 10px 12px;
     }
 
     .tech-group-label {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 12px;
+      margin-bottom: 7px;
     }
 
-    .tech-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tech-pills { display: flex; flex-wrap: wrap; gap: 5px; }
 
     .tech-pill {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--muted);
       background: var(--bg3);
       border: 1px solid var(--border);
-      padding: 3px 9px;
+      padding: 2px 7px;
       border-radius: 3px;
     }
 
@@ -316,11 +317,6 @@
       gap: 24px;
     }
 
-    @media (max-width: 600px) {
-      .exp-item { grid-template-columns: 1fr; gap: 6px; }
-      .values-grid { grid-template-columns: 1fr; }
-    }
-
     .exp-meta {
       font-family: var(--font-mono);
       font-size: 12px;
@@ -364,6 +360,16 @@
 
     footer a { color: var(--muted); }
     footer a:hover { color: var(--text); }
+
+    @media (max-width: 768px) {
+      .snapshot-grid { grid-template-columns: 1fr; }
+      .snapshot-col { padding-right: 0; padding-left: 0; border-left: none; }
+      .snapshot-col + .snapshot-col { border-left: none; border-top: 1px solid var(--border); padding-top: 36px; padding-left: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .exp-item { grid-template-columns: 1fr; gap: 6px; }
+    }
   </style>
 </head>
 <body>
@@ -400,7 +406,7 @@
       <span class="hero-tag">Kubernetes / AKS</span>
       <span class="hero-tag">Container-as-a-Service</span>
       <span class="hero-tag">GPU Compute</span>
-      <span class="hero-tag">CI/CD Infrastructure</span>
+      <span class="hero-tag">Compute Infrastructure</span>
       <span class="hero-tag">AI Agent Infra</span>
     </div>
     <div class="cta-row">
@@ -411,217 +417,163 @@
   </div>
 </section>
 
-<!-- ── How I Work ── -->
-<section id="how-i-work">
+<!-- ── Snapshot: How I Work | Impact | Technologies ── -->
+<section id="snapshot">
   <div class="container">
-    <p class="section-label">Competencies</p>
-    <h2>How I work</h2>
-    <div class="values-grid">
+    <div class="snapshot-grid">
 
-      <div class="value-card">
-        <span class="value-icon">&#128270;</span>
-        <h3>Build visibility before building a fix</h3>
-        <p>
-          When I hit a failure I don't understand, I instrument before I guess.
-          Synthetic tests, distributed traces, dashboards first. The actual root cause
-          of a problem is often only visible <strong>after</strong> you've built the
-          right observability layer. Jumping straight to a fix is how you patch the
-          wrong thing and carry the real issue forward.
-        </p>
-      </div>
-
-      <div class="value-card">
-        <span class="value-icon">&#128200;</span>
-        <h3>Own unowned critical problems</h3>
-        <p>
-          When a critical system has no owner and no documentation, I treat that as
-          a signal to lean in, not step back. I've stepped into systems mid-failure
-          with zero handoff, root-caused novel infrastructure problems from first principles,
-          and <strong>redesigned the architecture from scratch</strong> when the original
-          approach couldn't be salvaged.
-        </p>
-      </div>
-
-      <div class="value-card">
-        <span class="value-icon">&#129504;</span>
-        <h3>Reason from constraints, not trends</h3>
-        <p>
-          Popular tools get rejected when the constraints don't fit. I've turned down
-          Ansible, Chef, and agentless config management frameworks when runtime overhead,
-          authentication constraints, or firewall rules made them the wrong call.
-          <strong>The right tool is the one that fits your actual environment</strong>,
-          not the one that looks good in a tech radar.
-        </p>
-      </div>
-
-      <div class="value-card">
-        <span class="value-icon">&#9654;&#65039;</span>
-        <h3>Use AI as an engineering multiplier</h3>
-        <p>
-          I use AI to accelerate analysis that would otherwise take days: finding patterns
-          in large request datasets, identifying predictable burst windows that inform
-          pre-warming strategies over reactive scaling. I also <strong>build and operate
-          the infrastructure that AI coding agents run on</strong>, so I understand both
-          sides of that boundary.
-        </p>
-      </div>
-
-      <div class="value-card">
-        <span class="value-icon">&#127891;</span>
-        <h3>Roll out like a stakeholder, not a developer</h3>
-        <p>
-          Shipping a change to thousands of repos or across a multi-cluster production
-          fleet is not the same as merging a PR. I work directly with the teams affected
-          through adoption, run incremental rollouts with <strong>monitoring gates before
-          the next step</strong>, and don't announce things as done until they're actually
-          stable in production.
-        </p>
-      </div>
-
-      <div class="value-card">
-        <span class="value-icon">&#128274;</span>
-        <h3>Security and ops are part of the design</h3>
-        <p>
-          I don't bolt security on at the end. Pull-based architectures that eliminate
-          ad-hoc SSH access, isolation patterns that strengthen the security posture as a
-          side effect of a reliability fix, <strong>zero secrets in git from day one</strong>
-          on personal projects. These are design choices, not checklist items.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── Impact ── -->
-<section id="impact">
-  <div class="container">
-    <p class="section-label">Impact</p>
-    <h2>Scale and outcomes</h2>
-    <div class="metrics-grid">
-      <div class="metric">
-        <div class="metric-num">1.5M+</div>
-        <div class="metric-label">CI/CD build jobs per day on platforms I own</div>
-      </div>
-      <div class="metric">
-        <div class="metric-num">25% &#8594; &lt;1%</div>
-        <div class="metric-label">Network-related build failures after container isolation redesign</div>
-      </div>
-      <div class="metric">
-        <div class="metric-num">4h &#8594; &lt;5m</div>
-        <div class="metric-label">GPU runner queue times after driver provisioning redesign</div>
-      </div>
-      <div class="metric">
-        <div class="metric-num">90%+</div>
-        <div class="metric-label">Parallelized build tooling adoption across thousands of repos (from 0)</div>
-      </div>
-      <div class="metric">
-        <div class="metric-num">1h &#8594; &lt;20m</div>
-        <div class="metric-label">Container image build and publish times</div>
-      </div>
-      <div class="metric">
-        <div class="metric-num">15 &#8594; 0</div>
-        <div class="metric-label">Fleet incidents per quarter after automation agent rollout</div>
-      </div>
-      <div class="metric">
-        <div class="metric-num">30&#8211;75s &#8594; 1&#8211;2s</div>
-        <div class="metric-label">Artifact fetch times after cache infrastructure scaling</div>
-      </div>
-      <div class="metric">
-        <div class="metric-num">50K</div>
-        <div class="metric-label">Bare-metal hosts supported by enterprise platform services</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Technologies ── -->
-<section id="technologies">
-  <div class="container">
-    <p class="section-label">Stack</p>
-    <h2>Technologies</h2>
-    <div class="tech-grid">
-
-      <div class="tech-group">
-        <div class="tech-group-label">Orchestration &amp; Containers</div>
-        <div class="tech-pills">
-          <span class="tech-pill">Kubernetes (AKS)</span>
-          <span class="tech-pill">k3s</span>
-          <span class="tech-pill">Docker / BuildKit</span>
-          <span class="tech-pill">Helm</span>
-          <span class="tech-pill">GitHub Actions (ARC)</span>
+      <!-- How I Work -->
+      <div class="snapshot-col" id="how-i-work">
+        <p class="section-label">Competencies</p>
+        <h3 class="snapshot-h">How I Work</h3>
+        <div class="value-list">
+          <div class="value-item">
+            <span class="value-item-icon">&#128270;</span>
+            <span class="value-item-text">Build visibility before building a fix</span>
+          </div>
+          <div class="value-item">
+            <span class="value-item-icon">&#128200;</span>
+            <span class="value-item-text">Own unowned critical problems</span>
+          </div>
+          <div class="value-item">
+            <span class="value-item-icon">&#129504;</span>
+            <span class="value-item-text">Reason from constraints, not trends</span>
+          </div>
+          <div class="value-item">
+            <span class="value-item-icon">&#9654;&#65039;</span>
+            <span class="value-item-text">Use AI as an engineering multiplier</span>
+          </div>
+          <div class="value-item">
+            <span class="value-item-icon">&#127891;</span>
+            <span class="value-item-text">Roll out like a stakeholder, not a developer</span>
+          </div>
+          <div class="value-item">
+            <span class="value-item-icon">&#128274;</span>
+            <span class="value-item-text">Security and ops are part of the design</span>
+          </div>
         </div>
       </div>
 
-      <div class="tech-group">
-        <div class="tech-group-label">Cloud &amp; Infrastructure</div>
-        <div class="tech-pills">
-          <span class="tech-pill">Azure</span>
-          <span class="tech-pill">AWS</span>
-          <span class="tech-pill">Terraform</span>
-          <span class="tech-pill">Linux</span>
-          <span class="tech-pill">NVIDIA GPU Operator</span>
+      <!-- Impact -->
+      <div class="snapshot-col" id="impact">
+        <p class="section-label">Impact</p>
+        <h3 class="snapshot-h">Scale &amp; Outcomes</h3>
+        <div class="metric-col">
+          <div class="metric-sm">
+            <div class="metric-num">1.5M+</div>
+            <div class="metric-label">CI/CD build jobs per day on platforms I own</div>
+          </div>
+          <div class="metric-sm">
+            <div class="metric-num">25% &#8594; &lt;1%</div>
+            <div class="metric-label">Network-related build failures after container isolation redesign</div>
+          </div>
+          <div class="metric-sm">
+            <div class="metric-num">4h &#8594; &lt;5m</div>
+            <div class="metric-label">GPU runner queue times after driver provisioning redesign</div>
+          </div>
+          <div class="metric-sm">
+            <div class="metric-num">90%+</div>
+            <div class="metric-label">Parallelized build tooling adoption across thousands of repos (from 0)</div>
+          </div>
+          <div class="metric-sm">
+            <div class="metric-num">1h &#8594; &lt;20m</div>
+            <div class="metric-label">Container image build and publish times</div>
+          </div>
+          <div class="metric-sm">
+            <div class="metric-num">15 &#8594; 0</div>
+            <div class="metric-label">Fleet incidents per quarter after automation agent rollout</div>
+          </div>
+          <div class="metric-sm">
+            <div class="metric-num">30&#8211;75s &#8594; 1&#8211;2s</div>
+            <div class="metric-label">Artifact fetch times after cache infrastructure scaling</div>
+          </div>
+          <div class="metric-sm">
+            <div class="metric-num">50K</div>
+            <div class="metric-label">Bare-metal hosts supported by enterprise platform services</div>
+          </div>
         </div>
       </div>
 
-      <div class="tech-group">
-        <div class="tech-group-label">Languages &amp; Frameworks</div>
-        <div class="tech-pills">
-          <span class="tech-pill">Python</span>
-          <span class="tech-pill">Java / Spring Boot</span>
-          <span class="tech-pill">Bash</span>
-          <span class="tech-pill">RESTful APIs</span>
-        </div>
-      </div>
-
-      <div class="tech-group">
-        <div class="tech-group-label">Observability</div>
-        <div class="tech-pills">
-          <span class="tech-pill">OpenTelemetry (OTel)</span>
-          <span class="tech-pill">Grafana</span>
-          <span class="tech-pill">Azure Monitor</span>
-        </div>
-      </div>
-
-      <div class="tech-group">
-        <div class="tech-group-label">Data &amp; Storage</div>
-        <div class="tech-pills">
-          <span class="tech-pill">PostgreSQL</span>
-          <span class="tech-pill">Redis</span>
-          <span class="tech-pill">SQLAlchemy</span>
-          <span class="tech-pill">NoSQL</span>
-        </div>
-      </div>
-
-      <div class="tech-group">
-        <div class="tech-group-label">Build &amp; CI/CD</div>
-        <div class="tech-pills">
-          <span class="tech-pill">Bazel</span>
-          <span class="tech-pill">Maven</span>
-          <span class="tech-pill">Jenkins</span>
-          <span class="tech-pill">Artifactory</span>
-          <span class="tech-pill">Git</span>
-        </div>
-      </div>
-
-      <div class="tech-group">
-        <div class="tech-group-label">Security &amp; Secrets</div>
-        <div class="tech-pills">
-          <span class="tech-pill">Bitnami Sealed Secrets</span>
-          <span class="tech-pill">macOS Keychain</span>
-          <span class="tech-pill">FIPS compliance</span>
-          <span class="tech-pill">OAuth 2.0 PKCE</span>
-        </div>
-      </div>
-
-      <div class="tech-group">
-        <div class="tech-group-label">Config &amp; Automation</div>
-        <div class="tech-pills">
-          <span class="tech-pill">SaltStack</span>
-          <span class="tech-pill">HAProxy</span>
-          <span class="tech-pill">systemd</span>
-          <span class="tech-pill">Nginx</span>
-          <span class="tech-pill">Streamlit</span>
+      <!-- Technologies -->
+      <div class="snapshot-col" id="technologies">
+        <p class="section-label">Stack</p>
+        <h3 class="snapshot-h">Technologies</h3>
+        <div class="tech-col">
+          <div class="tech-group">
+            <div class="tech-group-label">Orchestration &amp; Containers</div>
+            <div class="tech-pills">
+              <span class="tech-pill">Kubernetes (AKS)</span>
+              <span class="tech-pill">k3s</span>
+              <span class="tech-pill">Docker / BuildKit</span>
+              <span class="tech-pill">Helm</span>
+              <span class="tech-pill">GitHub Actions (ARC)</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <div class="tech-group-label">Cloud &amp; Infrastructure</div>
+            <div class="tech-pills">
+              <span class="tech-pill">Azure</span>
+              <span class="tech-pill">AWS</span>
+              <span class="tech-pill">Terraform</span>
+              <span class="tech-pill">Linux</span>
+              <span class="tech-pill">NVIDIA GPU Operator</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <div class="tech-group-label">Languages &amp; Frameworks</div>
+            <div class="tech-pills">
+              <span class="tech-pill">Python</span>
+              <span class="tech-pill">Java / Spring Boot</span>
+              <span class="tech-pill">Bash</span>
+              <span class="tech-pill">RESTful APIs</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <div class="tech-group-label">Observability</div>
+            <div class="tech-pills">
+              <span class="tech-pill">OpenTelemetry (OTel)</span>
+              <span class="tech-pill">Grafana</span>
+              <span class="tech-pill">Azure Monitor</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <div class="tech-group-label">Data &amp; Storage</div>
+            <div class="tech-pills">
+              <span class="tech-pill">PostgreSQL</span>
+              <span class="tech-pill">Redis</span>
+              <span class="tech-pill">SQLAlchemy</span>
+              <span class="tech-pill">NoSQL</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <div class="tech-group-label">Build &amp; CI/CD</div>
+            <div class="tech-pills">
+              <span class="tech-pill">Bazel</span>
+              <span class="tech-pill">Maven</span>
+              <span class="tech-pill">Jenkins</span>
+              <span class="tech-pill">Artifactory</span>
+              <span class="tech-pill">Git</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <div class="tech-group-label">Security &amp; Secrets</div>
+            <div class="tech-pills">
+              <span class="tech-pill">Bitnami Sealed Secrets</span>
+              <span class="tech-pill">macOS Keychain</span>
+              <span class="tech-pill">FIPS compliance</span>
+              <span class="tech-pill">OAuth 2.0 PKCE</span>
+            </div>
+          </div>
+          <div class="tech-group">
+            <div class="tech-group-label">Config &amp; Automation</div>
+            <div class="tech-pills">
+              <span class="tech-pill">SaltStack</span>
+              <span class="tech-pill">HAProxy</span>
+              <span class="tech-pill">systemd</span>
+              <span class="tech-pill">Nginx</span>
+              <span class="tech-pill">Streamlit</span>
+            </div>
+          </div>
         </div>
       </div>
 
