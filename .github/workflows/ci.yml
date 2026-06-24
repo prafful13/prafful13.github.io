@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  # ── 1. HTML validation ────────────────────────────────────────────────────
+  html-validate:
+    name: HTML Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install html-validate
+        run: npm install --save-dev html-validate
+
+      - name: Validate index.html
+        run: npx html-validate index.html
+
+  # ── 2. Link checking ──────────────────────────────────────────────────────
+  link-check:
+    name: Link Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links with lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # .lychee.toml is auto-discovered and sets timeout/retries/excludes.
+          args: "--verbose --no-progress ./index.html"
+          fail: true
+
+  # ── 3. Image size guard ───────────────────────────────────────────────────
+  image-size:
+    name: Image Size Guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check committed image sizes
+        run: python3 scripts/check_image_sizes.py
+
+  # ── 4. Python tests (link/HTML/image validation unit tests) ──────────────
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install test dependencies
+        run: pip install pytest
+
+      - name: Run tests
+        run: pytest tests/ -v
