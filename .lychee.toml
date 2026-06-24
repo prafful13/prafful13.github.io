@@ -1,0 +1,11 @@
+# Lychee link-checker configuration
+# https://lychee.cli.rs/usage/configuration/
+
+timeout = 20
+max_retries = 3
+exclude_mail = true
+
+# LinkedIn aggressively blocks bots — skip it to avoid false positives.
+exclude = [
+  "^https://www\\.linkedin\\.com",
+]

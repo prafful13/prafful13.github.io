@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(gh repo *)",
+      "Bash(brew list *)",
+      "Read(//opt/homebrew/Cellar/gh/2.95.0/bin/**)",
+      "Bash(/opt/homebrew/bin/gh repo *)"
+    ]
+  }
+}
