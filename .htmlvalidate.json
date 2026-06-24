@@ -6,6 +6,7 @@
     "no-inline-style": "off",
     "prefer-native-element": "off",
     "heading-level": "off",
-    "element-permitted-content": "warn"
+    "element-permitted-content": "warn",
+    "void-style": "off"
   }
 }
